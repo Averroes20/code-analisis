@@ -8,6 +8,12 @@ export class EventService implements EventServiceInterface {
     @Inject('product-repository')
     private eventRepository: EventRepositoryInterface,
   ) {}
+  reduceStockQuantity(request: { [id: string]: number; }): void {
+    throw new Error('Method not implemented.');
+  }
+  restockQuantity(request: { [id: string]: number; }): void {
+    throw new Error('Method not implemented.');
+  }
 
   checkProductAvailibity(request: { [id: string]: number }): boolean {
     const products = this.eventRepository.findMany(Object.keys(request));

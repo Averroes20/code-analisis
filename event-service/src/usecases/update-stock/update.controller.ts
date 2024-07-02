@@ -1,9 +1,9 @@
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { Controller, Inject } from '@nestjs/common';
-import { ProductServiceInterface } from 'src/services/product.service.interface';
+import { EventServiceInterface } from 'src/services/event.service.interface';
 
 type UpdateStockMessage = {
-  products: [
+  events: [
     {
       id: string;
       quantity: number;
@@ -15,7 +15,7 @@ type UpdateStockMessage = {
 export class UpdateStockController {
   constructor(
     @Inject('product-service')
-    private readonly service: ProductServiceInterface,
+    private readonly service: EventServiceInterface,
   ) {}
 
   @MessagePattern('inventory.stock.reduce')
@@ -23,7 +23,7 @@ export class UpdateStockController {
     console.info('Inventory Service: reduce stock quantity');
 
     this.service.reduceStockQuantity(
-      message.products.reduce(
+      message.events.reduce(
         (result, { id, quantity }) => ({ ...result, [id]: quantity }),
         {},
       ),
@@ -38,7 +38,7 @@ export class UpdateStockController {
     console.info('Inventory Service: restock quantity');
 
     this.service.restockQuantity(
-      message.products.reduce(
+      message.events.reduce(
         (result, { id, quantity }) => ({ ...result, [id]: quantity }),
         {},
       ),

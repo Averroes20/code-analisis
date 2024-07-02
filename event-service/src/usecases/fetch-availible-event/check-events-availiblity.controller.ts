@@ -1,6 +1,6 @@
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { Controller, Inject } from '@nestjs/common';
-import { ProductServiceInterface } from 'src/services/product.service.interface';
+import { EventServiceInterface } from 'src/services/event.service.interface';
 
 type CheckProductsAvailibilityMessage = {
   products: [
@@ -15,7 +15,7 @@ type CheckProductsAvailibilityMessage = {
 export class CheckProductAvailibityController {
   constructor(
     @Inject('product-service')
-    private readonly service: ProductServiceInterface,
+    private readonly service: EventServiceInterface,
   ) {}
 
   @MessagePattern('inventory.products.get')
